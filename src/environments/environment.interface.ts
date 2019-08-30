@@ -1,5 +1,5 @@
-// tslint: disable
+// tslint:disable
 export interface Environment
 {
-  production: boolean;
+	production: boolean;
 }
