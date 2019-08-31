@@ -1,11 +1,12 @@
-import { Environment } from './environment.interface';
+import { Environment } from './environment.model';
 
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment: Environment = {
-	production: false
+  production: false,
+  sleeperUrl: 'https://api.sleeper.app/v1'
 };
 
 /*
