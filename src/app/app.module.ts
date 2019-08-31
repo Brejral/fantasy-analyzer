@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { reducers } from './reducer';
+import { EntityDataModule } from '@ngrx/data';
 
 @NgModule({
 	declarations: [
@@ -19,7 +20,8 @@ import { reducers } from './reducer';
 		HttpClientModule,
 		StoreModule.forRoot(reducers),
 		EffectsModule.forRoot([]),
-		environment.production ? [] : StoreDevtoolsModule.instrument()
+		environment.production ? [] : StoreDevtoolsModule.instrument(),
+		EntityDataModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
