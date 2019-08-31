@@ -1,3 +1,9 @@
+@import 'styles';
 * {
     font-family: Roboto;
+}
+
+body {
+    background-color: $shark;
+    color: $mischka;
 }
