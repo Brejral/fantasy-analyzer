@@ -1,20 +1,35 @@
-import { ActionCreator, createAction, props, union } from '@ngrx/store';
+import { Action } from '@ngrx/store';
 import { League } from 'src/app/shared/models';
 
-export const loadLeague: ActionCreator = createAction(
-	'[League] Load League',
-	props<{ leagueId: string }>()
-);
+export enum LeagueActionTypes
+{
+	LoadLeague = '[League] Load League',
+	LoadLeagueSuccess = '[League] Load League Success',
+	LoadLeagueFail = '[League] Load League Fail'
+}
 
-export const loadLeagueSuccess: ActionCreator = createAction(
-	'[League] Load League Success',
-	props<{ league: League }>()
-);
+export class LoadLeague implements Action
+{
+	public readonly type: string = LeagueActionTypes.LoadLeague;
 
-export const loadLeagueFail: ActionCreator = createAction(
-	'[League] Load League Fail',
-	props<{ error: Error }>()
-);
+	constructor(public leagueId: string) { }
+}
 
-const all: object = union({ loadLeague, loadLeagueSuccess, loadLeagueFail });
-export type LeagueActions = typeof all;
+export class LoadLeagueSuccess implements Action
+{
+	public readonly type: string = LeagueActionTypes.LoadLeagueSuccess;
+
+	constructor(public league: League) { }
+}
+
+export class LoadLeagueFail implements Action
+{
+	public readonly type: string = LeagueActionTypes.LoadLeagueFail;
+
+	constructor(public error: Error) { }
+}
+
+export type LeagueActionsUnion =
+	| LoadLeague
+	| LoadLeagueSuccess
+	| LoadLeagueFail;

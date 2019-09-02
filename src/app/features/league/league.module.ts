@@ -3,13 +3,13 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { LeagueEffects } from './effects/league.effects';
-import * as fromLeague from './reducers/league.reducer';
+import { leagueFeatureKey, leagueReducer } from './reducers/league.reducer';
 
 @NgModule({
 	declarations: [],
 	imports: [
 		CommonModule,
-		StoreModule.forFeature(fromLeague.leagueFeatureKey, fromLeague.reducer),
+		StoreModule.forFeature(leagueFeatureKey, leagueReducer),
 		EffectsModule.forFeature([LeagueEffects])
 	]
 })

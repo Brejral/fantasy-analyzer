@@ -1,7 +1,7 @@
 
-import { createReducer, on } from '@ngrx/store';
+import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { League } from 'src/app/shared/models';
-import { LeagueActions, loadLeagueSuccess } from '../actions/league.actions';
+import { LeagueActionsUnion, LeagueActionTypes } from '../actions/league.actions';
 
 export const leagueFeatureKey: string = 'league';
 
@@ -19,31 +19,22 @@ export const initialState: State = {
 	league: null
 };
 
-export const leagueReducer = createReducer(
-	initialState,
-	on(loadLeague, (state) => ({ ...state, loading: true })),
-	on(loadLeagueSuccess, (state, { league }) => ({ ...state, loading: false, league })),
-	on(loadLeagueFail, (state) => ({ ...state, loading: false, league: null }))
-);
-
-export function reducer(state: State = initialState, action: LeagueActions): State
+export function reducer(state: State = initialState, action: LeagueActionsUnion): State
 {
 	switch (action.type)
 	{
-		case LeagueActionTypes.LoadLeague:
+		case LeagueActionTypes.LoadLeague: {
 			return {
 				...state,
 				loading: true
 			};
-
+		}
 		case LeagueActionTypes.LoadLeagueSuccess: {
 			return {
 				...state,
-				loading: false,
 				league: action.league
 			};
 		}
-
 		case LeagueActionTypes.LoadLeagueFail: {
 			return {
 				...state,
@@ -51,8 +42,5 @@ export function reducer(state: State = initialState, action: LeagueActions): Sta
 				league: null
 			};
 		}
-
-		default:
-			return state;
 	}
 }

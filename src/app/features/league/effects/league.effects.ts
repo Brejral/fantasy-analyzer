@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, switchMap } from 'rxjs/operators';
 import { SleeperService } from 'src/app/shared/services/http';
-import { LeagueActionsUnion, loadLeague, loadLeagueFail, loadLeagueSuccess } from '../actions/league.actions';
+import { LeagueActionsUnion, LeagueActionTypes, LoadLeague, LoadLeagueFail, LoadLeagueSuccess } from '../actions/league.actions';
 
 @Injectable()
 export class LeagueEffects
@@ -13,12 +13,12 @@ export class LeagueEffects
 	/** Load League Effect */
 	@Effect()
 	public loadLeague$: Observable<Action> = this.actions$.pipe(
-		ofType(loadLeague),
-		map(action =>
+		ofType<LoadLeague>(LeagueActionTypes.LoadLeague),
+		switchMap(action =>
 		{
 			return this.sleeperService.getLeague(action.leagueId).pipe(
-				map(response => loadLeagueSuccess({ league: response })),
-				catchError(error => of(loadLeagueFail({ error })))
+				map(response => new LoadLeagueSuccess(response)),
+				catchError(error => of(new LoadLeagueFail(error)))
 			);
 		})
 	);

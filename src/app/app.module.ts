@@ -8,7 +8,6 @@ import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { reducers } from './reducer';
-import { EntityDataModule } from '@ngrx/data';
 
 @NgModule({
 	declarations: [
