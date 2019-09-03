@@ -24,5 +24,6 @@
   "cSpell.words": [
     "Validators",
     "ngrx"
-  ]
+],
+"javascript.implicitProjectConfig.experimentalDecorators": true
 }

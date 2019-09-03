@@ -1,3 +1,5 @@
+import { DraftPick } from './draft-pick.model';
+
 /** Draft Model */
 // tslint:disable
 export interface Draft
@@ -41,4 +43,5 @@ export interface Draft
 	draft_id: string;
 	creators: string[],
 	created: number;
+	draft_picks: DraftPick[]
 }

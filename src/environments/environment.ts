@@ -5,8 +5,10 @@ import { Environment } from './environment.model';
 // The list of file replacements can be found in `angular.json`.
 
 export const environment: Environment = {
-  production: false,
-  sleeperUrl: 'https://api.sleeper.app/v1'
+	production: false,
+	sleeperUrl: 'https://api.sleeper.app/v1',
+	leagueId: '471447458837164032',
+	draftId: '471447464709189632'
 };
 
 /*

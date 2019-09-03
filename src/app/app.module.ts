@@ -19,8 +19,7 @@ import { reducers } from './reducer';
 		HttpClientModule,
 		StoreModule.forRoot(reducers),
 		EffectsModule.forRoot([]),
-		environment.production ? [] : StoreDevtoolsModule.instrument(),
-		EntityDataModule
+		environment.production ? [] : StoreDevtoolsModule.instrument()
 	],
 	providers: [],
 	bootstrap: [AppComponent]
