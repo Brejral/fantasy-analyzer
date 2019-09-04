@@ -10,21 +10,21 @@ export enum LeagueActionTypes
 
 export class LoadLeague implements Action
 {
-	public readonly type: string = LeagueActionTypes.LoadLeague;
+	public readonly type: LeagueActionTypes.LoadLeague = LeagueActionTypes.LoadLeague;
 
 	constructor(public leagueId: string) { }
 }
 
 export class LoadLeagueSuccess implements Action
 {
-	public readonly type: string = LeagueActionTypes.LoadLeagueSuccess;
+	public readonly type: LeagueActionTypes.LoadLeagueSuccess = LeagueActionTypes.LoadLeagueSuccess;
 
 	constructor(public league: League) { }
 }
 
 export class LoadLeagueFail implements Action
 {
-	public readonly type: string = LeagueActionTypes.LoadLeagueFail;
+	public readonly type: LeagueActionTypes.LoadLeagueFail = LeagueActionTypes.LoadLeagueFail;
 
 	constructor(public error: Error) { }
 }
