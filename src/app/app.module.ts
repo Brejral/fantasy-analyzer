@@ -7,6 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LeagueEffects } from './features/league/effects/league.effects';
 import { reducers } from './reducer';
 
 @NgModule({
@@ -18,7 +19,7 @@ import { reducers } from './reducer';
 		AppRoutingModule,
 		HttpClientModule,
 		StoreModule.forRoot(reducers),
-		EffectsModule.forRoot([]),
+		EffectsModule.forRoot([LeagueEffects]),
 		environment.production ? [] : StoreDevtoolsModule.instrument()
 	],
 	providers: [],

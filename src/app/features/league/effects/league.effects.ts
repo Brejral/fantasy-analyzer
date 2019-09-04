@@ -4,7 +4,12 @@ import { Action } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap } from 'rxjs/operators';
 import { SleeperService } from 'src/app/shared/services/http';
-import { LeagueActionsUnion, LeagueActionTypes, LoadLeague, LoadLeagueFail, LoadLeagueSuccess } from '../actions/league.actions';
+import
+{
+	LeagueActionsUnion, LeagueActionTypes, LoadDraft, LoadDraftFail,
+	LoadDraftSuccess, LoadLeague, LoadLeagueFail, LoadLeagueSuccess,
+	LoadPlayers, LoadPlayersFail, LoadPlayersSuccess
+} from '../actions/league.actions';
 
 @Injectable()
 export class LeagueEffects
@@ -19,6 +24,30 @@ export class LeagueEffects
 			return this.sleeperService.getLeague(action.leagueId).pipe(
 				map(response => new LoadLeagueSuccess(response)),
 				catchError(error => of(new LoadLeagueFail(error)))
+			);
+		})
+	);
+	/** Load League Effect */
+	@Effect()
+	public loadPlayers$: Observable<Action> = this.actions$.pipe(
+		ofType<LoadPlayers>(LeagueActionTypes.LoadPlayers),
+		switchMap(action =>
+		{
+			return this.sleeperService.getPlayers().pipe(
+				map(response => new LoadPlayersSuccess(response)),
+				catchError(error => of(new LoadPlayersFail(error)))
+			);
+		})
+	);
+	/** Load League Effect */
+	@Effect()
+	public loadDraft$: Observable<Action> = this.actions$.pipe(
+		ofType<LoadDraft>(LeagueActionTypes.LoadDraft),
+		switchMap(action =>
+		{
+			return this.sleeperService.getDraft(action.draftId).pipe(
+				map(response => new LoadDraftSuccess(response)),
+				catchError(error => of(new LoadDraftFail(error)))
 			);
 		})
 	);

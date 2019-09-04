@@ -10,7 +10,7 @@ import { leagueFeatureKey, reducer } from './reducers/league.reducer';
 	imports: [
 		CommonModule,
 		StoreModule.forFeature(leagueFeatureKey, reducer),
-		EffectsModule.forFeature([LeagueEffects])
+		EffectsModule.forFeature([])
 	]
 })
 export class LeagueModule { }

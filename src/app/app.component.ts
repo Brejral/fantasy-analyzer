@@ -1,8 +1,11 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment.prod';
-import { League, Players } from './shared/models';
+import { environment } from 'src/environments/environment';
+import { LoadDraft, LoadLeague, LoadPlayers } from './features/league/actions/league.actions';
+import * as fromRoot from './reducer';
+import { Draft, League, Players } from './shared/models';
 import { SleeperService } from './shared/services/http';
 import { LeagueViewModel } from './shared/view-models/league.view-model';
 
@@ -11,31 +14,28 @@ import { LeagueViewModel } from './shared/view-models/league.view-model';
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnDestroy
+export class AppComponent implements OnDestroy, OnInit
 {
 	public isLoading: boolean = true;
 	public viewModel: LeagueViewModel;
 	private league$: Observable<League>;
 	private players$: Observable<Players>;
+	private draft$: Observable<Draft>;
 	private get viewModel$(): Observable<LeagueViewModel>
 	{
 		return combineLatest(
 			this.league$,
 			this.players$,
-			this.sleeperService.getDraft(environment.draftId),
-			this.sleeperService.getDraftPicks(environment.draftId),
-			this.sleeperService.getStats()
+			this.draft$
 		).pipe(
-			map(([league, players, draft, draftPicks, stats]) =>
+			map(([league, players, draft]) =>
 			{
-				if (league && players && draft && draftPicks && stats)
+				if (league && players && draft)
 				{
-					draft.draft_picks = draftPicks;
 					return {
 						league,
 						players,
 						draft,
-						draftPicks
 					} as LeagueViewModel;
 				}
 				return null;
@@ -43,13 +43,18 @@ export class AppComponent implements OnDestroy
 		);
 	}
 	private subscriptions: Subscription[];
-	constructor(private sleeperService: SleeperService)
+	constructor(private store: Store<fromRoot.State>)
 	{
-		this.league$ = this.sleeperService.getLeague(environment.leagueId);
-		this.players$ = this.sleeperService.getPlayers();
-		this.subscriptions = [
-			this.viewModel$.subscribe(x => this.viewModel = x)
-		];
+		this.league$ = store.select(x => x.league.league);
+		this.players$ = store.select(x => x.league.players);
+		this.draft$ = store.select(x => x.league.draft);
+	}
+
+	public ngOnInit(): void
+	{
+		this.store.dispatch(new LoadLeague(environment.leagueId));
+		this.store.dispatch(new LoadPlayers());
+		this.store.dispatch(new LoadDraft(environment.draftId));
 	}
 
 	public ngOnDestroy(): void
