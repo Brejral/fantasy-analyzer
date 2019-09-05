@@ -1,89 +1,21 @@
-import { Action } from '@ngrx/store';
-import { Draft, League, Players } from 'src/app/shared/models';
+import { createAction, props } from '@ngrx/store';
+import { Draft, DraftPick, League, Players, Stats } from 'src/app/shared/models';
+// tslint:disable: variable-name
+// tslint:disable: typedef
+// tslint:disable: completed-docs
 
-export enum LeagueActionTypes
-{
-	LoadLeague = '[League] Load League',
-	LoadLeagueSuccess = '[League] Load League Success',
-	LoadLeagueFail = '[League] Load League Fail',
-	LoadPlayers = '[League] Load Players',
-	LoadPlayersSuccess = '[League] Load Players Success',
-	LoadPlayersFail = '[League] Load Players Fail',
-	LoadDraft = '[League] Load Draft',
-	LoadDraftSuccess = '[League] Load Draft Success',
-	LoadDraftFail = '[League] Load Draft Fail'
-}
-
-export class LoadLeague implements Action
-{
-	public readonly type: LeagueActionTypes.LoadLeague = LeagueActionTypes.LoadLeague;
-
-	constructor(public leagueId: string) { }
-}
-
-export class LoadLeagueSuccess implements Action
-{
-	public readonly type: LeagueActionTypes.LoadLeagueSuccess = LeagueActionTypes.LoadLeagueSuccess;
-
-	constructor(public league: League) { }
-}
-
-export class LoadLeagueFail implements Action
-{
-	public readonly type: LeagueActionTypes.LoadLeagueFail = LeagueActionTypes.LoadLeagueFail;
-
-	constructor(public error: Error) { }
-}
-
-export class LoadPlayers implements Action
-{
-	public readonly type: LeagueActionTypes.LoadPlayers = LeagueActionTypes.LoadPlayers;
-
-	constructor() { }
-}
-
-export class LoadPlayersSuccess implements Action
-{
-	public readonly type: LeagueActionTypes.LoadPlayersSuccess = LeagueActionTypes.LoadPlayersSuccess;
-
-	constructor(public players: Players) { }
-}
-
-export class LoadPlayersFail implements Action
-{
-	public readonly type: LeagueActionTypes.LoadPlayersFail = LeagueActionTypes.LoadPlayersFail;
-
-	constructor(public error: Error) { }
-}
-
-export class LoadDraft implements Action
-{
-	public readonly type: LeagueActionTypes.LoadDraft = LeagueActionTypes.LoadDraft;
-
-	constructor(public draftId: string) { }
-}
-
-export class LoadDraftSuccess implements Action
-{
-	public readonly type: LeagueActionTypes.LoadDraftSuccess = LeagueActionTypes.LoadDraftSuccess;
-
-	constructor(public draft: Draft) { }
-}
-
-export class LoadDraftFail implements Action
-{
-	public readonly type: LeagueActionTypes.LoadDraftFail = LeagueActionTypes.LoadDraftFail;
-
-	constructor(public error: Error) { }
-}
-
-export type LeagueActionsUnion =
-	| LoadLeague
-	| LoadLeagueSuccess
-	| LoadLeagueFail
-	| LoadPlayers
-	| LoadPlayersSuccess
-	| LoadPlayersFail
-	| LoadDraft
-	| LoadDraftSuccess
-	| LoadDraftFail;
+export const LoadStats = createAction('[League] Load Stats', props<{}>());
+export const LoadStatsSuccess = createAction('[League] Load Stats Success', props<{ stats: Stats }>());
+export const LoadStatsFail = createAction('[League] Load Stats Fail', props<{ error: Error }>());
+export const LoadLeague = createAction('[League] Load League', props<{ leagueId: string }>());
+export const LoadLeagueSuccess = createAction('[League] Load League Success', props<{ league: League }>());
+export const LoadLeagueFail = createAction('[League] Load League Fail', props<{ error: Error }>());
+export const LoadDraft = createAction('[League] Load Draft', props<{ draftId: string }>());
+export const LoadDraftSuccess = createAction('[League] Load Draft Success', props<{ draft: Draft }>());
+export const LoadDraftFail = createAction('[League] Load Draft Fail', props<{ error: Error }>());
+export const LoadDraftPicks = createAction('[League] Load Draft Picks', props<{ draftId: string }>());
+export const LoadDraftPicksSuccess = createAction('[League] Load Draft Picks Success', props<{ draftPicks: DraftPick[] }>());
+export const LoadDraftPicksFail = createAction('[League] Load Draft Picks Fail', props<{ error: Error }>());
+export const LoadPlayers = createAction('[League] Load Players', props<{}>());
+export const LoadPlayersSuccess = createAction('[League] Load Players Success', props<{ players: Players }>());
+export const LoadPlayersFail = createAction('[League] Load Players Fail', props<{ error: Error }>());
