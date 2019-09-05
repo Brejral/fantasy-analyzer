@@ -1,4 +1,4 @@
-import { ActionReducer, ActionReducerMap } from '@ngrx/store';
+import { ActionReducerMap } from '@ngrx/store';
 import * as fromLeague from '../features/league/reducers/league.reducer';
 
 /** Ngrx Root Store State */
@@ -9,5 +9,5 @@ export interface State
 }
 
 export const reducers: ActionReducerMap<State> = {
-	league: fromLeague.reducer
+	league: fromLeague.leagueReducer
 };

@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { LoadDraft, LoadLeague, LoadPlayers } from './features/league/actions/league.actions';
+import { LoadDraft, LoadLeague, LoadPlayers, LoadStats } from './features/league/actions/league.actions';
 import * as fromRoot from './reducer';
 import { Draft, League, Players } from './shared/models';
 import { SleeperService } from './shared/services/http';
@@ -52,9 +52,10 @@ export class AppComponent implements OnDestroy, OnInit
 
 	public ngOnInit(): void
 	{
-		this.store.dispatch(new LoadLeague(environment.leagueId));
-		this.store.dispatch(new LoadPlayers());
-		this.store.dispatch(new LoadDraft(environment.draftId));
+		this.store.dispatch(LoadLeague({ leagueId: environment.leagueId }));
+		this.store.dispatch(LoadPlayers({}));
+		this.store.dispatch(LoadStats({}));
+		this.store.dispatch(LoadDraft({ draftId: environment.draftId }));
 	}
 
 	public ngOnDestroy(): void
