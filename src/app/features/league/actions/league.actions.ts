@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { Draft, DraftPick, League, Players, Stats } from 'src/app/shared/models';
+import { Draft, DraftPick, League, LeagueRoster, LeagueUser, Players, Stats } from 'src/app/shared/models';
 // tslint:disable: variable-name
 // tslint:disable: typedef
 // tslint:disable: completed-docs
@@ -19,3 +19,9 @@ export const LoadDraftPicksFail = createAction('[League] Load Draft Picks Fail',
 export const LoadPlayers = createAction('[League] Load Players', props<{}>());
 export const LoadPlayersSuccess = createAction('[League] Load Players Success', props<{ players: Players }>());
 export const LoadPlayersFail = createAction('[League] Load Players Fail', props<{ error: Error }>());
+export const LoadLeagueUsers = createAction('[League] Load League Users', props<{ leagueId: string }>());
+export const LoadLeagueUsersSuccess = createAction('[League] Load League Users Success', props<{ leagueUsers: LeagueUser[] }>());
+export const LoadLeagueUsersFail = createAction('[League] Load League Users Fail', props<{ error: Error }>());
+export const LoadLeagueRosters = createAction('[League] Load League Rosters', props<{ leagueId: string }>());
+export const LoadLeagueRostersSuccess = createAction('[League] Load League Rosters Success', props<{ leagueRosters: LeagueRoster[] }>());
+export const LoadLeagueRostersFail = createAction('[League] Load League Rosters Fail', props<{ error: Error }>());

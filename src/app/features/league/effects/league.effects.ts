@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 import
 {
 	LoadDraft, LoadDraftFail, LoadDraftPicks, LoadDraftPicksFail, LoadDraftPicksSuccess, LoadDraftSuccess,
-	LoadLeague, LoadLeagueFail, LoadLeagueSuccess, LoadPlayers, LoadPlayersFail,
-	LoadPlayersSuccess, LoadStats, LoadStatsFail, LoadStatsSuccess
+	LoadLeague, LoadLeagueFail, LoadLeagueSuccess, LoadLeagueUsers, LoadPlayers,
+	LoadPlayersFail, LoadPlayersSuccess, LoadStats, LoadStatsFail, LoadStatsSuccess, LoadLeagueRosters, LoadLeagueUsersSuccess, LoadLeagueUsersFail, LoadLeagueRostersSuccess, LoadLeagueRostersFail
 } from '../actions/league.actions';
 
 @Injectable()
@@ -20,8 +20,39 @@ export class LeagueEffects
 		switchMap(action =>
 		{
 			return this.sleeperService.getLeague(action.leagueId).pipe(
-				map(response => LoadLeagueSuccess({ league: response })),
+				map(league => LoadLeagueSuccess({ league })),
 				catchError(error => of(LoadLeagueFail({ error })))
+			);
+		})
+	));
+
+	public loadLeagueSuccess$: Observable<Action> = createEffect(() => this.actions$.pipe(
+		ofType(LoadLeagueSuccess),
+		switchMap(() =>
+		{
+			return [
+				LoadLeagueUsers({ leagueId: environment.leagueId }),
+				LoadLeagueRosters({ leagueId: environment.leagueId })
+			];
+		})
+	));
+	public loadLeagueUsers$: Observable<Action> = createEffect(() => this.actions$.pipe(
+		ofType(LoadLeagueUsers),
+		switchMap(action =>
+		{
+			return this.sleeperService.getLeagueUsers(action.leagueId).pipe(
+				map(leagueUsers => LoadLeagueUsersSuccess({ leagueUsers })),
+				catchError(error => of(LoadLeagueUsersFail({ error })))
+			);
+		})
+	));
+	public loadLeagueRosters$: Observable<Action> = createEffect(() => this.actions$.pipe(
+		ofType(LoadLeagueRosters),
+		switchMap(action =>
+		{
+			return this.sleeperService.getLeagueRosters(action.leagueId).pipe(
+				map(leagueRosters => LoadLeagueRostersSuccess({ leagueRosters })),
+				catchError(error => of(LoadLeagueRostersFail({ error })))
 			);
 		})
 	));

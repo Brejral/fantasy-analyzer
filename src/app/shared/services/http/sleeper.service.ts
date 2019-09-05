@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Draft, DraftPick, League, Players, Stats } from '../../models';
+import { Draft, DraftPick, League, LeagueRoster, LeagueUser, Players, Stats } from '../../models';
 
 @Injectable({
 	providedIn: 'root'
@@ -36,6 +36,16 @@ export class SleeperService
 	public getLeagueDrafts(leagueId: string): Observable<League>
 	{
 		return this.http.get<League>(environment.sleeperUrl + '/league/' + leagueId);
+	}
+
+	public getLeagueUsers(leagueId: string): Observable<LeagueUser[]>
+	{
+		return this.http.get<LeagueUser[]>(environment.sleeperUrl + '/league/' + leagueId + '/users');
+	}
+
+	public getLeagueRosters(leagueId: string): Observable<LeagueRoster[]>
+	{
+		return this.http.get<LeagueRoster[]>(environment.sleeperUrl + '/league/' + leagueId + '/rosters');
 	}
 
 	/** Get League From Sleeper API */

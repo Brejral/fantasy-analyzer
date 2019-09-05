@@ -1,30 +1,21 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { Draft, DraftPick, League, Players, Stats } from 'src/app/shared/models';
-import
-{
-	LoadDraftFail, LoadDraftPicksFail, LoadDraftPicksSuccess, LoadDraftSuccess,
-	LoadLeagueFail, LoadLeagueSuccess, LoadPlayersFail, LoadPlayersSuccess,
-	LoadStatsFail, LoadStatsSuccess
-} from '../actions/league.actions';
+import { Draft, League, Players, Stats } from 'src/app/shared/models';
+import { LoadDraftPicksSuccess, LoadDraftSuccess, LoadLeagueRostersSuccess, LoadLeagueSuccess, LoadLeagueUsersSuccess, LoadPlayersSuccess, LoadStatsSuccess } from '../actions/league.actions';
 
 export const leagueFeatureKey: string = 'league';
 
-/** League State */
 export interface State
 {
-	/** League */
 	league: League;
 	players: Players;
 	stats: Stats;
 	draft: Draft;
-	draftPicks: DraftPick[];
 }
 
 export const initialState: State = {
 	league: null,
 	players: null,
 	draft: null,
-	draftPicks: null,
 	stats: null
 };
 
@@ -37,7 +28,36 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 			league: action.league
 		};
 	}),
-	on(LoadLeagueFail, (state): State => state),
+	on(LoadLeagueUsersSuccess, (state, action): State =>
+	{
+		return {
+			...state,
+			league: {
+				...state.league,
+				users: action.leagueUsers
+			}
+		};
+	}),
+	on(LoadLeagueRostersSuccess, (state, action): State =>
+	{
+		return {
+			...state,
+			league: {
+				...state.league,
+				rosters: action.leagueRosters
+			}
+		};
+	}),
+	on(LoadLeagueUsersSuccess, (state, action): State =>
+	{
+		return {
+			...state,
+			league: {
+				...state.league,
+				users: action.leagueUsers
+			}
+		};
+	}),
 	on(LoadDraftSuccess, (state, action): State =>
 	{
 		return {
@@ -45,7 +65,6 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 			draft: action.draft
 		};
 	}),
-	on(LoadDraftFail, (state): State => state),
 	on(LoadPlayersSuccess, (state, action): State =>
 	{
 		return {
@@ -53,7 +72,6 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 			players: action.players
 		};
 	}),
-	on(LoadPlayersFail, (state): State => state),
 	on(LoadDraftPicksSuccess, (state, action): State =>
 	{
 		return {
@@ -64,13 +82,11 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 			}
 		};
 	}),
-	on(LoadDraftPicksFail, (state): State => state),
 	on(LoadStatsSuccess, (state, action): State =>
 	{
 		return {
 			...state,
 			stats: action.stats
 		};
-	}),
-	on(LoadStatsFail, (state): State => state)
+	})
 );
