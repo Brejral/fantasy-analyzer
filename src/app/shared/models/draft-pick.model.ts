@@ -13,6 +13,7 @@ export interface DraftPick
 		status: string;
 		sport: string;
 		position: string;
+		pos_pick_order: number;
 		player_id: string;
 		number: string;
 		news_updated: string;

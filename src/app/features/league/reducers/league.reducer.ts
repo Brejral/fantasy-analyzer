@@ -74,6 +74,13 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 	}),
 	on(LoadDraftPicksSuccess, (state, action): State =>
 	{
+		const counts: { [key: string]: number } = {};
+		action.draftPicks.forEach(draftPick =>
+		{
+			const count: number = (counts[draftPick.metadata.position] || 0) + 1;
+			draftPick.metadata.pos_pick_order = count;
+			counts[draftPick.metadata.position] = count;
+		});
 		return {
 			...state,
 			draft: {

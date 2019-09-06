@@ -18,6 +18,13 @@ export class AppComponent implements OnDestroy, OnInit
 {
 	public isLoading: boolean = true;
 	public viewModel: LeagueViewModel;
+	public get usersInDraftOrder(): string[]
+	{
+		return Object.keys(this.viewModel.draft.draft_order).forEach(userId =>
+		{
+
+		})
+	}
 	private league$: Observable<League>;
 	private players$: Observable<Players>;
 	private draft$: Observable<Draft>;
