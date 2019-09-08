@@ -1,8 +1,10 @@
-<div class='app-container'>
-    <div class='header grid'>
-        <div>
-
-        </div>
-    </div>
-
+<div class='app-container' *ngIf='viewModel'>
+	<div class='board grid-12'>
+		<div *ngFor='let user of viewModel.sortedUsers' class='col'>
+			{{ user.display_name }}
+		</div>
+		<div *ngFor='let draftPick of viewModel.draft.draft_picks' class='col'>
+			{{ draftPick.metadata.first_name + ' ' + draftPick.metadata.last_name }}
+		</div>
+	</div>
 </div>

@@ -1,5 +1,5 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
-import { Draft, League, Players, Stats, LeagueUser } from 'src/app/shared/models';
+import { Draft, League, LeagueUser, Players, Stats } from 'src/app/shared/models';
 import { LoadDraftPicksSuccess, LoadDraftSuccess, LoadLeagueRostersSuccess, LoadLeagueSuccess, LoadLeagueUsersSuccess, LoadPlayersSuccess, LoadStatsSuccess } from '../actions/league.actions';
 
 export const leagueFeatureKey: string = 'league';
@@ -60,14 +60,6 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 	}),
 	on(LoadDraftSuccess, (state, action): State =>
 	{
-		if (state.league && state.league.users)
-		{
-			const users: LeagueUser[] = [];
-			Object.keys(action.draft.draft_order).forEach(userId =>
-			{
-
-			});
-		}
 		return {
 			...state,
 			draft: action.draft,
