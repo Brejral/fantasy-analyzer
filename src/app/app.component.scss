@@ -1,5 +1,16 @@
+@import 'styles';
 .app-container {
     .board {
-        font-size: (12/16)rem;
+        overflow: auto;
+        font-size: 0.75rem;
+        .header {
+            text-align: center;
+        }
+        .draft-pick {
+            background-color: $mischka;
+            border-radius: .4rem;
+            color: $bright-gray;
+            margin: .25rem;
+        }
     }
 }

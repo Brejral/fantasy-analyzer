@@ -34,7 +34,7 @@ export class AppComponent implements OnDestroy, OnInit
 		).pipe(
 			map(([league, players, draft]) =>
 			{
-				if (league && players && draft && league.users && league.rosters)
+				if (league && players && draft && draft.draft_picks && league.users && league.rosters)
 				{
 					const sortedUsers: LeagueUser[] = [...league.users];
 					sortedUsers.sort((a, b) =>
