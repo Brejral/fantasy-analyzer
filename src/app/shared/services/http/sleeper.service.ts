@@ -23,7 +23,7 @@ export class SleeperService
 	/** Get Players From Sleeper API */
 	public getStats(): Observable<Stats>
 	{
-		return this.http.get<Stats>(environment.sleeperUrl + '/players/nfl');
+		return this.http.get<Stats>(environment.sleeperUrl + '/stats/nfl/regular/2019');
 	}
 
 	/** Get League From Sleeper API */

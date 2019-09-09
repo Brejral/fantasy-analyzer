@@ -1,16 +1,59 @@
 @import 'styles';
+
+$cell-width: 10rem;
+
 .app-container {
     .board {
         overflow: auto;
         font-size: 0.75rem;
-        .header {
+        border-spacing: 0.5rem;
+
+        .header-cell {
             text-align: center;
+            min-width: $cell-width;
+            color: $mischka;
         }
-        .draft-pick {
+
+        .draft-pick-cell {
             background-color: $mischka;
             border-radius: .4rem;
             color: $bright-gray;
-            margin: .25rem;
+            min-width: $cell-width;
+            padding: 0.5rem;
+
+            &.qb {
+                background-color: $blue-dianne;
+                color: $mischka;
+            }
+
+            &.rb {
+                background-color: $golden-dream;
+                color: $shark;
+            }
+
+            &.wr {
+                background-color: $bay-leaf;
+                color: $shark;
+            }
+
+            &.te {
+                background-color: $barrel-green;
+                color: $shark;
+            }
+
+            &.k {
+                background-color: $tom-thumb;
+                color: $mischka;
+            }
+
+            .draft-pick-cell-wrapper {
+                display: flex;
+
+                .name-wrapper {
+                    flex: 1;
+                }
+            }
+
         }
     }
 }

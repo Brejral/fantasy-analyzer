@@ -17,6 +17,10 @@ export class AppComponent implements OnDestroy, OnInit
 {
 	public isLoading: boolean = true;
 	public viewModel: LeagueViewModel;
+	public get rounds(): number[]
+	{
+		return this.viewModel ? Array(this.viewModel.draft.settings.rounds).fill(0).map((_n, i) => i) : [];
+	}
 	private league$: Observable<League>;
 	private players$: Observable<Players>;
 	private draft$: Observable<Draft>;
@@ -86,5 +90,11 @@ export class AppComponent implements OnDestroy, OnInit
 	public ngOnDestroy(): void
 	{
 		this.subscriptions.forEach(x => x.unsubscribe());
+	}
+
+	public getDraftPicks(round: number): DraftPick[]
+	{
+		const userCount: number = this.viewModel ? this.viewModel.sortedUsers.length : 0;
+		return this.viewModel ? this.viewModel.draft.draft_picks.slice(round * userCount, ((round + 1) * userCount)) : [];
 	}
 }
