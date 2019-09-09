@@ -5,8 +5,9 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { LoadDraft, LoadLeague, LoadPlayers, LoadStats } from './features/league/actions/league.actions';
 import * as fromRoot from './reducer';
-import { Draft, DraftPick, League, LeagueUser, Players } from './shared/models';
+import { Draft, DraftPick, League, LeagueUser, Players, Stats } from './shared/models';
 import { LeagueViewModel } from './shared/view-models/league.view-model';
+import { sort } from 'fast-sort';
 
 @Component({
 	selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnDestroy, OnInit
 	private league$: Observable<League>;
 	private players$: Observable<Players>;
 	private draft$: Observable<Draft>;
+	private stats$: Observable<Stats>;
 	private viewModel$: Observable<LeagueViewModel>;
 	private subscriptions: Subscription[];
 	constructor(private store: Store<fromRoot.State>)
@@ -31,14 +33,16 @@ export class AppComponent implements OnDestroy, OnInit
 		this.league$ = store.select(x => x.league.league);
 		this.players$ = store.select(x => x.league.players);
 		this.draft$ = store.select(x => x.league.draft);
+		this.stats$ = store.select(x => x.league.stats);
 		this.viewModel$ = combineLatest(
 			this.league$,
 			this.players$,
-			this.draft$
+			this.draft$,
+			this.stats$
 		).pipe(
-			map(([league, players, draft]) =>
+			map(([league, players, draft, stats]) =>
 			{
-				if (league && players && draft && draft.draft_picks && league.users && league.rosters)
+				if (league && players && draft && draft.draft_picks && league.users && league.rosters && stats)
 				{
 					const sortedUsers: LeagueUser[] = [...league.users];
 					sortedUsers.sort((a, b) =>
@@ -63,6 +67,12 @@ export class AppComponent implements OnDestroy, OnInit
 						}
 						draft.draft_picks = sortedDraftPicks;
 					}
+
+					const sortedPlayers: any = Object.keys(players).map((playerId: string) =>
+					{
+						return { playerId, points: stats[playerId].pts_half_ppr };
+					});
+
 					return {
 						league,
 						players,
