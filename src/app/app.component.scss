@@ -1,72 +1,117 @@
 @import 'styles';
-
-$cell-width: 10rem;
-
+$cell-width: 11rem;
 .app-container {
     .board {
         overflow: auto;
         font-size: 0.75rem;
         border-spacing: 0.5rem;
-
         .header-cell {
             text-align: center;
             min-width: $cell-width;
-            color: $mischka;
+            color: $shark;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
-
         .draft-pick-cell {
-            background-color: $mischka;
+            background-color: $shark;
             border-radius: .4rem;
-            color: $bright-gray;
+            color: white;
             min-width: $cell-width;
-            padding: 0.5rem;
-
-            &.qb {
-                background-color: white;
-                color: $shark;
+            padding: 0;
+            .draft-pick-cell-wrapper {
+                padding: 0.5rem;
+                border-radius: .4rem;
+                &.pos {
+                    background-color: rgba(0, 128, 0, 0.1);
+                }
+                &.pos-5 {
+                    background-color: rgba(0, 128, 0, 0.2);
+                }
+                &.pos-10 {
+                    background-color: rgba(0, 128, 0, 0.3);
+                }
+                &.pos-15 {
+                    background-color: rgba(0, 128, 0, 0.4);
+                }
+                &.pos-20 {
+                    background-color: rgba(0, 128, 0, 0.5);
+                }
+                &.pos-25 {
+                    background-color: rgba(0, 128, 0, 0.6);
+                }
+                &.pos-30 {
+                    background-color: rgba(0, 128, 0, 0.7);
+                }
+                &.pos-35 {
+                    background-color: rgba(0, 128, 0, 0.8);
+                }
+                &.pos-40 {
+                    background-color: rgba(0, 128, 0, 0.9);
+                }
+                &.pos-45 {
+                    background-color: rgba(0, 128, 0, 1);
+                }
+                &.neg {
+                    background-color: rgba(255, 0, 0, 0.1);
+                }
+                &.neg-5 {
+                    background-color: rgba(255, 0, 0, 0.2);
+                }
+                &.neg-10 {
+                    background-color: rgba(255, 0, 0, 0.3);
+                }
+                &.neg-15 {
+                    background-color: rgba(255, 0, 0, 0.4);
+                }
+                &.neg-20 {
+                    background-color: rgba(255, 0, 0, 0.5);
+                }
+                &.neg-25 {
+                    background-color: rgba(255, 0, 0, 0.6);
+                }
+                &.neg-30 {
+                    background-color: rgba(255, 0, 0, 0.7);
+                }
+                &.neg-35 {
+                    background-color: rgba(255, 0, 0, 0.8);
+                }
+                &.neg-40 {
+                    background-color: rgba(255, 0, 0, 0.9);
+                }
+                &.neg-45 {
+                    background-color: rgba(255, 0, 0, 1);
+                }
             }
-
-            &.rb {
-                background-color: silver;
-                color: $shark;
-            }
-
-            &.wr {
-                background-color: darkgray;
-                color: white;
-            }
-
-            &.te {
-                background-color: gray;
-                color: white;
-            }
-
-            &.k {
-                background-color: black;
-                color: white;
-            }
-
+            // &.qb {
+            //     background-color: white;
+            //     color: $shark;
+            // }
+            // &.rb {
+            //     background-color: silver;
+            //     color: $shark;
+            // }
+            // &.wr {
+            //     background-color: darkgray;
+            //     color: white;
+            // }
+            // &.te {
+            //     background-color: gray;
+            //     color: white;
+            // }
+            // &.k {
+            //     background-color: black;
+            //     color: white;
+            // }
             .draft-pick-cell-wrapper {
                 display: flex;
-
                 .name-wrapper {
                     flex: 1;
                 }
-
                 .rank-difference {
                     margin: auto;
                     margin-right: .5rem;
-
-                    &.pos {
-                        color: green;
-                    }
-
-                    &.neg {
-                        color: red;
-                    }
                 }
             }
-
         }
     }
 }
