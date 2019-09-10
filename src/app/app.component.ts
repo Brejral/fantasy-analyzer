@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { sort } from 'fast-sort';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -7,7 +8,6 @@ import { LoadDraft, LoadLeague, LoadPlayers, LoadStats } from './features/league
 import * as fromRoot from './reducer';
 import { Draft, DraftPick, League, LeagueUser, Players, Stats } from './shared/models';
 import { LeagueViewModel } from './shared/view-models/league.view-model';
-import { sort } from 'fast-sort';
 
 @Component({
 	selector: 'app-root',
@@ -70,7 +70,15 @@ export class AppComponent implements OnDestroy, OnInit
 
 					const sortedPlayers: any = Object.keys(players).map((playerId: string) =>
 					{
-						return { playerId, points: stats[playerId].pts_half_ppr };
+						return { playerId, points: stats[playerId].pts_half_ppr, position: players[playerId].position };
+					});
+					sort(sortedPlayers).desc(p => p.points);
+					const counts: { [pos: string]: number } = {};
+					sortedPlayers.forEach(p =>
+					{
+						const count: number = (counts[p.position] || 0) + 1;
+						players[p.playerId].actual_pos_rank = count;
+						counts[p.position] = count;
 					});
 
 					return {
