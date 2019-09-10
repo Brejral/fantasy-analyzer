@@ -22,28 +22,28 @@ $cell-width: 10rem;
             padding: 0.5rem;
 
             &.qb {
-                background-color: $blue-dianne;
-                color: $mischka;
+                background-color: white;
+                color: $shark;
             }
 
             &.rb {
-                background-color: $golden-dream;
+                background-color: silver;
                 color: $shark;
             }
 
             &.wr {
-                background-color: $bay-leaf;
-                color: $shark;
+                background-color: darkgray;
+                color: white;
             }
 
             &.te {
-                background-color: $barrel-green;
-                color: $shark;
+                background-color: gray;
+                color: white;
             }
 
             &.k {
-                background-color: $tom-thumb;
-                color: $mischka;
+                background-color: black;
+                color: white;
             }
 
             .draft-pick-cell-wrapper {
@@ -51,6 +51,19 @@ $cell-width: 10rem;
 
                 .name-wrapper {
                     flex: 1;
+                }
+
+                .rank-difference {
+                    margin: auto;
+                    margin-right: .5rem;
+
+                    &.pos {
+                        color: green;
+                    }
+
+                    &.neg {
+                        color: red;
+                    }
                 }
             }
 

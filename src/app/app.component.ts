@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { sort } from 'fast-sort';
+import * as sort from 'fast-sort';
 import { combineLatest, Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -68,11 +68,15 @@ export class AppComponent implements OnDestroy, OnInit
 						draft.draft_picks = sortedDraftPicks;
 					}
 
-					const sortedPlayers: any = Object.keys(players).map((playerId: string) =>
+					const sortedPlayers: { playerId: string; points: number; position: string }[] = [];
+					Object.keys(players).forEach((playerId: string) =>
 					{
-						return { playerId, points: stats[playerId].pts_half_ppr, position: players[playerId].position };
+						if (stats[playerId] && stats[playerId].pts_half_ppr !== undefined)
+						{
+							sortedPlayers.push({ playerId, points: stats[playerId].pts_half_ppr, position: players[playerId].position });
+						}
 					});
-					sort(sortedPlayers).desc(p => p.points);
+					sort(sortedPlayers).desc((p: { playerId: string; points: number; position: string }) => p.points);
 					const counts: { [pos: string]: number } = {};
 					sortedPlayers.forEach(p =>
 					{
@@ -114,5 +118,19 @@ export class AppComponent implements OnDestroy, OnInit
 	{
 		const userCount: number = this.viewModel ? this.viewModel.sortedUsers.length : 0;
 		return this.viewModel ? this.viewModel.draft.draft_picks.slice(round * userCount, ((round + 1) * userCount)) : [];
+	}
+
+	public getRankDifference(draftPick: DraftPick): string
+	{
+		const actual: number = this.viewModel.players[draftPick.player_id].actual_pos_rank;
+		const draft: number = draftPick.metadata.pos_pick_order;
+		return draft === actual ? '-' : (!actual || draft - actual < 0 ? '-' : '+') + (Math.abs(draft - (actual || 0)));
+	}
+
+	public getRankDiff(draftPick: DraftPick): number
+	{
+		const actual: number = this.viewModel.players[draftPick.player_id].actual_pos_rank;
+		const draft: number = draftPick.metadata.pos_pick_order;
+		return actual ? draft - actual : -draft;
 	}
 }
