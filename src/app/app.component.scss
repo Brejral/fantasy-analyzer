@@ -1,21 +1,22 @@
 @import 'styles';
 $cell-width: 11rem;
-
 .app-container {
     overflow: hidden;
-    height: 100vh;
-    width: 100vw;
-
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    // height: 100vh;
+    // width: 100vw;
     .board {
         font-size: 0.75rem;
-        height: 100%;
+        flex: 1;
         display: flex;
         flex-direction: column;
-
+        overflow-x: auto;
         .header {
             border-spacing: 0.5rem;
             display: block;
-
             .header-cell {
                 text-align: center;
                 min-width: $cell-width;
@@ -25,115 +26,94 @@ $cell-width: 11rem;
                 padding: 0;
             }
         }
-
         .draft-picks {
             border-spacing: 0.5rem;
             display: block;
             overflow-y: auto;
             flex: 1;
-
             .draft-pick-cell {
                 background-color: white;
                 border-radius: .4rem;
                 color: $shark;
                 min-width: $cell-width;
                 padding: 0;
-
+                &.filter-out {
+                    opacity: 0.2;
+                }
                 .draft-pick-cell-wrapper {
                     padding: 0.5rem;
                     border-radius: .4rem;
-
                     &.pos {
                         background-color: rgba(0, 128, 0, 0.1);
                     }
-
                     &.pos-5 {
                         background-color: rgba(0, 128, 0, 0.2);
                     }
-
                     &.pos-10 {
                         background-color: rgba(0, 128, 0, 0.3);
                     }
-
                     &.pos-15 {
                         background-color: rgba(0, 128, 0, 0.4);
                     }
-
                     &.pos-20 {
                         background-color: rgba(0, 128, 0, 0.5);
                     }
-
                     &.pos-25 {
                         background-color: rgba(0, 128, 0, 0.6);
                         color: white;
                     }
-
                     &.pos-30 {
                         background-color: rgba(0, 128, 0, 0.7);
                         color: white;
                     }
-
                     &.pos-35 {
                         background-color: rgba(0, 128, 0, 0.8);
                         color: white;
                     }
-
                     &.pos-40 {
                         background-color: rgba(0, 128, 0, 0.9);
                         color: white;
                     }
-
                     &.pos-45 {
                         background-color: rgba(0, 128, 0, 1);
                         color: white;
                     }
-
                     &.neg {
-                        background-color: rgba(255, 0, 0, 0.1);
+                        background-color: rgba(200, 0, 0, 0.1);
                     }
-
                     &.neg-5 {
-                        background-color: rgba(255, 0, 0, 0.2);
+                        background-color: rgba(200, 0, 0, 0.2);
                     }
-
                     &.neg-10 {
-                        background-color: rgba(255, 0, 0, 0.3);
+                        background-color: rgba(200, 0, 0, 0.3);
                     }
-
                     &.neg-15 {
-                        background-color: rgba(255, 0, 0, 0.4);
+                        background-color: rgba(200, 0, 0, 0.4);
                     }
-
                     &.neg-20 {
-                        background-color: rgba(255, 0, 0, 0.5);
+                        background-color: rgba(200, 0, 0, 0.5);
                     }
-
                     &.neg-25 {
-                        background-color: rgba(255, 0, 0, 0.6);
+                        background-color: rgba(200, 0, 0, 0.6);
                         color: white;
                     }
-
                     &.neg-30 {
-                        background-color: rgba(255, 0, 0, 0.7);
+                        background-color: rgba(200, 0, 0, 0.7);
                         color: white;
                     }
-
                     &.neg-35 {
-                        background-color: rgba(255, 0, 0, 0.8);
+                        background-color: rgba(200, 0, 0, 0.8);
                         color: white;
                     }
-
                     &.neg-40 {
-                        background-color: rgba(255, 0, 0, 0.9);
+                        background-color: rgba(200, 0, 0, 0.9);
                         color: white;
                     }
-
                     &.neg-45 {
-                        background-color: rgba(255, 0, 0, 1);
+                        background-color: rgba(200, 0, 0, 1);
                         color: white;
                     }
                 }
-
                 // &.qb {
                 //     background-color: white;
                 //     color: $shark;
@@ -156,11 +136,9 @@ $cell-width: 11rem;
                 // }
                 .draft-pick-cell-wrapper {
                     display: flex;
-
                     .name-wrapper {
                         flex: 1;
                     }
-
                     .rank-difference {
                         margin: auto;
                         margin-right: .5rem;

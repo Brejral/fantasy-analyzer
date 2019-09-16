@@ -18,6 +18,7 @@ export class AppComponent implements OnDestroy, OnInit
 {
 	public isLoading: boolean = true;
 	public viewModel: LeagueViewModel;
+	public positionFilter: string = 'All';
 	public get rounds(): number[]
 	{
 		return this.viewModel ? Array(this.viewModel.draft.settings.rounds).fill(0).map((_n, i) => i) : [];
@@ -132,5 +133,16 @@ export class AppComponent implements OnDestroy, OnInit
 		const actual: number = this.viewModel.players[draftPick.player_id].actual_pos_rank;
 		const draft: number = draftPick.metadata.pos_pick_order;
 		return actual ? draft - actual : -draft;
+	}
+
+	public onPositionFilterChange(filter: string): void
+	{
+		this.positionFilter = filter;
+	}
+
+	public playsPositionFilter(position: string): boolean
+	{
+		return this.positionFilter === 'All' || (this.positionFilter === 'FLEX' && ['rb', 'wr', 'te'].includes(position.toLowerCase()))
+			|| this.positionFilter.toLowerCase() === position.toLowerCase();
 	}
 }
