@@ -1,6 +1,6 @@
-<div class='app-container' *ngIf='viewModel'>
-    <form class='filters'>
-        <select class='position-filter' (change)='onPositionFilterChange($event.target.value)'>
+<div class='app-container'>
+	<form class='filters'>
+		<select class='position-filter' (change)='onPositionFilterChange($event.target.value)'>
 			<option>All</option>
 			<option>QB</option>
 			<option>RB</option>
@@ -9,21 +9,42 @@
 			<option>FLEX</option>
 			<option>K</option>
 		</select>
-    </form>
-    <div class='board'>
-        <table class='header'>
-            <tr class='header-row'>
-                <td *ngFor='let user of viewModel.sortedUsers' class='header-cell'>
-                    {{ user.display_name }}
-                </td>
-            </tr>
-        </table>
-        <table class='draft-picks'>
-            <tr *ngFor='let round of rounds' class='draft-round-row'>
-                <td *ngFor='let draftPick of getDraftPicks(round)' class='draft-pick-cell' [ngClass]="{
+		<select class='period-filter' (change)='onPeriodFilterChange($event.target.value)'>
+			<option>2019 Total</option>
+			<option>1</option>
+			<option>2</option>
+			<option>3</option>
+			<option>4</option>
+			<option>5</option>
+			<option>6</option>
+			<option>7</option>
+			<option>8</option>
+			<option>9</option>
+			<option>10</option>
+			<option>11</option>
+			<option>12</option>
+			<option>13</option>
+			<option>14</option>
+			<option>15</option>
+			<option>16</option>
+			<option>17</option>
+		</select>
+	</form>
+	<div class='board' *ngIf='viewModel'>
+		<table class='header'>
+			<tr class='header-row'>
+				<td *ngFor='let user of viewModel.sortedUsers' class='header-cell'>
+					{{ user.display_name }}
+				</td>
+			</tr>
+		</table>
+		<table class='draft-picks'>
+			<tr *ngFor='let round of rounds' class='draft-round-row'>
+				<td *ngFor='let draftPick of getDraftPicks(round)' class='draft-pick-cell'
+					[ngClass]="{
 					'filter-out': !playsPositionFilter(draftPick.metadata.position)
 				}">
-                    <div class='draft-pick-cell-wrapper' [ngClass]="{
+					<div class='draft-pick-cell-wrapper' [ngClass]="{
 						'pos-45': getRankDiff(draftPick) / draftPick.metadata.pos_pick_order > .9,
 						'pos-40': getRankDiff(draftPick) / draftPick.metadata.pos_pick_order > .8 && getRankDiff(draftPick) / draftPick.metadata.pos_pick_order <= .9,
 						'pos-35': getRankDiff(draftPick) / draftPick.metadata.pos_pick_order > .7 && getRankDiff(draftPick) / draftPick.metadata.pos_pick_order <= .8,
@@ -45,28 +66,29 @@
 						'neg-40': getRankDiff(draftPick) < -40 && getRankDiff(draftPick) >= -45,
 						'neg-45': getRankDiff(draftPick) < -45
 					}">
-                        <div class='name-wrapper'>
-                            <div class='first-name'>
-                                {{ draftPick.metadata.first_name }}
-                            </div>
-                            <div class='last-name'>
-                                {{draftPick.metadata.last_name}}
-                            </div>
-                        </div>
-                        <div class='rank-difference' [ngClass]="getRankDiff(draftPick) > 0 ? 'pos' : getRankDiff(draftPick) < 0 ? 'neg' : ''">
-                            {{ getRankDifference(draftPick) }}
-                        </div>
-                        <div class='draft-pos-wrapper'>
-                            <div class='pick-rank'>
-                                {{draftPick.metadata.position + draftPick.metadata.pos_pick_order}}
-                            </div>
-                            <div class='fantasy-rank'>
-                                {{draftPick.metadata.position + (viewModel.players[draftPick.player_id].actual_pos_rank || '&mdash;')}}
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
+						<div class='name-wrapper'>
+							<div class='first-name'>
+								{{ draftPick.metadata.first_name }}
+							</div>
+							<div class='last-name'>
+								{{draftPick.metadata.last_name}}
+							</div>
+						</div>
+						<div class='rank-difference'
+							[ngClass]="getRankDiff(draftPick) > 0 ? 'pos' : getRankDiff(draftPick) < 0 ? 'neg' : ''">
+							{{ getRankDifference(draftPick) }}
+						</div>
+						<div class='draft-pos-wrapper'>
+							<div class='pick-rank'>
+								{{draftPick.metadata.position + draftPick.metadata.pos_pick_order}}
+							</div>
+							<div class='fantasy-rank'>
+								{{draftPick.metadata.position + (viewModel.players[draftPick.player_id].actual_pos_rank || '&mdash;')}}
+							</div>
+						</div>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
 </div>

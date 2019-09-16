@@ -8,8 +8,8 @@ import { environment } from 'src/environments/environment';
 import
 {
 	LoadDraft, LoadDraftFail, LoadDraftPicks, LoadDraftPicksFail, LoadDraftPicksSuccess, LoadDraftSuccess,
-	LoadLeague, LoadLeagueFail, LoadLeagueSuccess, LoadLeagueUsers, LoadPlayers,
-	LoadPlayersFail, LoadPlayersSuccess, LoadStats, LoadStatsFail, LoadStatsSuccess, LoadLeagueRosters, LoadLeagueUsersSuccess, LoadLeagueUsersFail, LoadLeagueRostersSuccess, LoadLeagueRostersFail
+	LoadLeague, LoadLeagueFail, LoadLeagueRosters, LoadLeagueRostersFail, LoadLeagueRostersSuccess,
+	LoadLeagueSuccess, LoadLeagueUsers, LoadLeagueUsersFail, LoadLeagueUsersSuccess, LoadPlayers, LoadPlayersFail, LoadPlayersSuccess, LoadStats, LoadStatsFail, LoadStatsSuccess
 } from '../actions/league.actions';
 
 @Injectable()
@@ -102,7 +102,7 @@ export class LeagueEffects
 		ofType(LoadStats),
 		switchMap(action =>
 		{
-			return this.sleeperService.getStats().pipe(
+			return this.sleeperService.getStats(action.week).pipe(
 				map(stats => LoadStatsSuccess({ stats })),
 				catchError(error => of(LoadStatsFail(error)))
 			);

@@ -43,5 +43,6 @@ export interface Draft
 	draft_id: string;
 	creators: string[],
 	created: number;
-	draft_picks: DraftPick[]
+	draft_picks: DraftPick[],
+	is_sorted: boolean
 }

@@ -1,6 +1,6 @@
 import { Action, ActionReducer, createReducer, on } from '@ngrx/store';
 import { Draft, League, LeagueUser, Players, Stats } from 'src/app/shared/models';
-import { LoadDraftPicksSuccess, LoadDraftSuccess, LoadLeagueRostersSuccess, LoadLeagueSuccess, LoadLeagueUsersSuccess, LoadPlayersSuccess, LoadStatsSuccess } from '../actions/league.actions';
+import { LoadDraftPicksSuccess, LoadDraftSuccess, LoadLeagueRostersSuccess, LoadLeagueSuccess, LoadLeagueUsersSuccess, LoadPlayersSuccess, LoadStats, LoadStatsSuccess } from '../actions/league.actions';
 
 export const leagueFeatureKey: string = 'league';
 
@@ -88,6 +88,13 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 				...state.draft,
 				draft_picks: action.draftPicks
 			}
+		};
+	}),
+	on(LoadStats, (state, action): State =>
+	{
+		return {
+			...state,
+			stats: null
 		};
 	}),
 	on(LoadStatsSuccess, (state, action): State =>

@@ -4,7 +4,7 @@ import { Draft, DraftPick, League, LeagueRoster, LeagueUser, Players, Stats } fr
 // tslint:disable: typedef
 // tslint:disable: completed-docs
 
-export const LoadStats = createAction('[League] Load Stats', props<{}>());
+export const LoadStats = createAction('[League] Load Stats', props<{ week?: string }>());
 export const LoadStatsSuccess = createAction('[League] Load Stats Success', props<{ stats: Stats }>());
 export const LoadStatsFail = createAction('[League] Load Stats Fail', props<{ error: Error }>());
 export const LoadLeague = createAction('[League] Load League', props<{ leagueId: string }>());

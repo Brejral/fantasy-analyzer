@@ -21,9 +21,9 @@ export class SleeperService
 	}
 
 	/** Get Players From Sleeper API */
-	public getStats(): Observable<Stats>
+	public getStats(week: string): Observable<Stats>
 	{
-		return this.http.get<Stats>(environment.sleeperUrl + '/stats/nfl/regular/2019');
+		return this.http.get<Stats>(environment.sleeperUrl + '/stats/nfl/regular/2019' + (week ? '/' + week : ''));
 	}
 
 	/** Get League From Sleeper API */

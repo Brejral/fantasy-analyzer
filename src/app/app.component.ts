@@ -19,6 +19,7 @@ export class AppComponent implements OnDestroy, OnInit
 	public isLoading: boolean = true;
 	public viewModel: LeagueViewModel;
 	public positionFilter: string = 'All';
+	public periodFilter: string = '2019 Total';
 	public get rounds(): number[]
 	{
 		return this.viewModel ? Array(this.viewModel.draft.settings.rounds).fill(0).map((_n, i) => i) : [];
@@ -50,7 +51,7 @@ export class AppComponent implements OnDestroy, OnInit
 					{
 						return draft.draft_order[a.user_id] - draft.draft_order[b.user_id];
 					});
-					if (draft.type === 'snake')
+					if (draft.type === 'snake' && !draft.is_sorted)
 					{
 						const sortedDraftPicks: DraftPick[] = [];
 						let j: number;
@@ -67,6 +68,7 @@ export class AppComponent implements OnDestroy, OnInit
 							}
 						}
 						draft.draft_picks = sortedDraftPicks;
+						draft.is_sorted = true;
 					}
 
 					const sortedPlayers: { playerId: string; points: number; position: string }[] = [];
@@ -133,6 +135,15 @@ export class AppComponent implements OnDestroy, OnInit
 		const actual: number = this.viewModel.players[draftPick.player_id].actual_pos_rank;
 		const draft: number = draftPick.metadata.pos_pick_order;
 		return actual ? draft - actual : -draft;
+	}
+
+	public onPeriodFilterChange(filter: string): void
+	{
+		if (filter !== this.periodFilter)
+		{
+			this.periodFilter = filter;
+			this.store.dispatch(LoadStats({ week: filter !== '2019 Total' ? filter : null }));
+		}
 	}
 
 	public onPositionFilterChange(filter: string): void
