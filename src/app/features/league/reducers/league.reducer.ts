@@ -19,7 +19,7 @@ export const initialState: State = {
 	stats: null
 };
 
-export const leagueReducer: ActionReducer<State, Action> = createReducer(
+const leagueReducer: ActionReducer<State, Action> = createReducer(
 	initialState,
 	on(LoadLeagueSuccess, (state, action): State =>
 	{
@@ -105,3 +105,8 @@ export const leagueReducer: ActionReducer<State, Action> = createReducer(
 		};
 	})
 );
+
+export function reducer(state: State | undefined, action: Action): State
+{
+	return leagueReducer(state, action);
+}

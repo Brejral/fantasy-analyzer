@@ -9,5 +9,5 @@ export interface State
 }
 
 export const reducers: ActionReducerMap<State> = {
-	league: fromLeague.leagueReducer
+	league: fromLeague.reducer
 };
